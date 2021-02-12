@@ -32,7 +32,7 @@ import axios from "axios"
 
 export default {
   metaInfo: {
-    title: "Hello, world!"
+    title: "Users"
   },
   data() {
     return {

@@ -24,7 +24,7 @@
           </div>
           <div class="user-profile mt-2">
             <span class="font-semibold">Profile</span>:
-            <a class="hover:text-blue-500" :href="user.html_url">{{
+            <a class="hover:text-blue-500" target="_blank" :href="user.html_url">{{
               user.login
             }}</a>
           </div>
@@ -58,7 +58,7 @@
               <td class="w-1/3">{{ repo.id }}</td>
               <td class="w-1/3">{{ repo.name }}</td>
               <td class="w-1/3">
-                <a class="hover:text-blue-500" :href="repo.html_url"
+                <a class="hover:text-blue-500" target="_blank" :href="repo.html_url"
                   >Repository</a
                 >
               </td>
@@ -75,7 +75,7 @@ import axios from "axios"
 
 export default {
   metaInfo: {
-    title: "Hello, world!"
+    title: this.user.name
   },
   data() {
     return {
