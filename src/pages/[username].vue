@@ -4,7 +4,8 @@
       class="grid grid-rows-3 lg:grid-flow-col gap-10 lg:p-8 items-center justify-items-center"
     >
       <div class="row-span-3 col-span-3">
-        <div class="user-profile text-center">
+        <loading v-if="loadingUser" />
+        <div class="user-profile text-center" v-else>
           <div
             class="rounded-full h-40 w-40 flex items-center justify-center spang-gray-300 mx-auto border-2"
           >
@@ -38,7 +39,8 @@
         </div>
       </div>
       <div class="row-span-3 lg:col-span-2 col-span-3 text-center">
-        <table class="table-fixed mx-auto w-full">
+        <loading v-if="loadingRepositories" />
+        <table class="table-fixed mx-auto w-full" v-else>
           <caption class="text-2xl mb-4">
             Repositories
           </caption>
@@ -78,6 +80,7 @@
 
 <script>
 import axios from "axios"
+import Loading from '../components/Loading'
 
 export default {
   metaInfo() {
@@ -85,10 +88,15 @@ export default {
       title: this.user.name
     }
   },
+  components: {
+    Loading
+  },
   data() {
     return {
       user: {},
-      repositories: []
+      repositories: [],
+      loadingUser: false,
+      loadingRepositories: false
     }
   },
   computed: {
@@ -101,22 +109,28 @@ export default {
   methods: {
     async fetchUserDetails(username) {
       try {
+        this.loadingUser = true
         const { data } = await axios.get(
           `https://anuar-githubapi-proxy.herokuapp.com/api/users/${username}/details`
         )
         this.user = data ? data : {}
       } catch (error) {
         console.error(error)
+      } finally {
+        this.loadingUser = false
       }
     },
     async fetchUserRepositories(username) {
       try {
+        this.loadingRepositories = true
         const { data } = await axios.get(
           `https://anuar-githubapi-proxy.herokuapp.com/api/users/${username}/repos`
         )
         this.repositories = data ? data : []
       } catch (error) {
         console.error(error)
+      } finally {
+        this.loadingRepositories = false
       }
     }
   },
