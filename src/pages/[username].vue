@@ -61,7 +61,7 @@
               :key="repo.id"
             >
               <td class="w-1/3">{{ repo.id }}</td>
-              <td class="w-1/3">{{ repo.name }}</td>
+              <td class="w-1/3 truncate">{{ repo.name }}</td>
               <td class="w-1/3">
                 <a
                   class="hover:text-blue-500"
